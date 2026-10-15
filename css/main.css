@@ -1,0 +1,121 @@
+@import url('./reset.css');
+@import url('./cart.css');
+
+:root {
+    --color-gray-white: #fff;
+    --color-gray-black: #0D0D0D;
+    --color-gray-lighter: #F2F2F2;
+    --color-gray-medium: #999;
+    --color1-main: #F23051;
+    --color1-main-light: #FC8B9E;
+    --color1-lighter: #FCD7DD;
+    --color-font-error: #CC2929;
+    --color-error-darker: #A61029;
+    --box-shadow-main: 0px 0px 10px 2px rgba(0, 11, 64, 0.1);
+}
+
+body {
+    background-color: var(--color-gray-white);
+    color: var(--color-gray-black);
+    font-family: sans-serif;
+}
+
+.hidden {
+    display: none;
+}
+
+.view {
+  animation: view-in 0.28s ease both;
+}
+
+.view[hidden] {
+  display: none;
+}
+
+@keyframes view-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+}
+
+.checkbox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--color-gray-medium);
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.checkbox:hover::after, .checkbox:checked::after {
+    content: "\2713";
+}
+
+.checkbox:checked {
+    color: var(--color-gray-white);
+    background-color: var(--color1-main);
+    border-color: var(--color1-main);
+}
+
+.mainActionElement {
+    background-color: var(--color-gray-lighter);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.mainActionElement:hover {
+    background-color: var(--color1-lighter);
+}
+
+main{
+    padding: 16px;
+}
+
+.header{
+    padding: 16px;
+    display: none;
+}
+
+footer {
+    padding: 20px 16px 150px 16px;
+    background-color: var(--color1-lighter);
+}
+
+.separator {
+    width: 100%;
+    height: 2px;
+    margin-bottom: 32px;
+    background-color: var(--color-gray-lighter);
+}
+
+.footer__copy {
+    font-size: 13px;
+    color: var(--color-gray-medium);
+    margin-bottom: 30px;
+}
+
+.studioSign {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    justify-content: start;
+    column-gap: 12px;
+}
+
+.studioSign__logo {
+    grid-row: 1/3;
+}
