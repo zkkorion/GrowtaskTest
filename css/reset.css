@@ -14,6 +14,7 @@
 
 a, a:link, a:visited, a:hover  {
     text-decoration: none;
+	color: inherit;
 }
 
 aside, nav, footer, header, section, main {
