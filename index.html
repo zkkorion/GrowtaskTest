@@ -71,25 +71,25 @@
       </div>
     </div>
     <div class="headerCart">
-       <a class="headerCart__link mainActionElement" href="#/cart">
-          <div class="headerCart__badge">0</div>
+       <a class="headerCart__link mainActionElement" href="#cart">
+          <div class="headerCart__badge"><span class="productCount">0</span></div>
           <svg class="headerCart__icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
             <use href="#headerCart"></use>
           </svg>
-          <div class="headerCart__summ"><span class="headerCart__summValue">000</span> ₽</div>
+          <div class="cart__summAmount">0 ₽</div>
        </a>
     </div>
   </header>
 
   <main>
     <!-- КОРЗИНА -->
-    <section class="view" id="viewCart" hidden>
+    <section class="viewCart">
       <div class="page">
         <div class="pageHeader">
           <nav class="breadcrumbs" aria-label="Хлебные крошки">
             <ol class="breadcrumbs__list">
               <li class="breadcrumbs__item breadcrumbs__main mainActionElement">
-                <a class="breadcrumbs__link" href="#/cart">
+                <a class="breadcrumbs__link" href="#cart">
                   <svg class="icon homeIcon" viewBox="0 0 13 13">
                     <use href="#home"></use>
                   </svg>
@@ -103,7 +103,7 @@
           <div class="page__title">
             <div class="page__titleText">Корзина</div>
             <div class="page__titleProductCount">
-              <span id="productCount">0</span> шт.
+              <span class="productCount">0 </span> шт.
             </div>
           </div>
         </div>
@@ -115,6 +115,14 @@
                 <label for="selectAll" class="selectAllLabel">Выбрать все</label>
               </div>
               <div class="mainActionElement clearCart">
+                <button class="deleteSelected__button" type="button">
+                  <svg class="icon clearCart__icon" viewBox="0 0 16 16">
+                    <use href="#trash"></use>
+                  </svg>
+                  Удалить выбранные
+                </button>
+              </div>
+              <div class="mainActionElement clearCart">
                 <button class="clearCart__button" type="button">
                   <svg class="icon clearCart__icon" viewBox="0 0 16 16">
                     <use href="#trash"></use>
@@ -124,45 +132,46 @@
               </div>
             </div>
             <div class="productList">
-
-              <div class="productCard">
-                <div class="productCard__imageContainer">
-                  <input class="checkbox selectProduct" type="checkbox" name="selectProduct" id="" />
-                  <img src="images/no-image.jpg" class="productCard__image">
-                </div>
-                <div class="productCard__nameContainer">
-                  <div class="productCard__article">Article</div>
-                  <div class="productCard__name">Handwasher</div>
-                </div>
-                <div class="productCard__priceContainer">
-                  <div class="productCard__price">
-                    <span class="productCardCurrentPrice">00000000 ₽</span>
-                    <span class="productCardOldPrice">0000000 ₽</span>
+              <template id="productCard">
+                <div class="productCard">
+                  <div class="productCard__imageContainer">
+                    <input class="checkbox selectProduct" type="checkbox" name="selectProduct" />
+                    <img src="images/no-image.jpg" class="productCard__image">
                   </div>
-
-                  <div class="productCard__amount amount">
-
-                    <div class="amount__actions">
-                      <div class="amount__buttons">
-                        <button class="mainActionElement amount__button">-</button>
-                        <div class="amount__count">0</div>
-                        <button class="mainActionElement amount__button">+</button>
-                      </div>
-                      <div class="mainActionElement">
-                        <button class="amount__delete">
-                          <svg class="icon clearCart__icon" viewBox="0 0 16 16">
-                            <use href="#trash"></use>
-                          </svg>
-                        </button>
-                      </div>
+                  <div class="productCard__nameContainer">
+                    <div class="productCard__article">Article</div>
+                    <div class="productCard__name">Handwasher</div>
+                  </div>
+                  <div class="productCard__priceContainer">
+                    <div class="productCard__price">
+                      <span class="productCardPrice">0</span>
+                      <span class="productCardOldPrice">0</span>
                     </div>
 
-                    <div class="productCard__value">0000000 ₽</div>
+                    <div class="productCard__amount amount">
+
+                      <div class="amount__actions">
+                        <div class="amount__buttons">
+                          <button class="mainActionElement amount__button productDecrease">-</button>
+                          <div class="amount__count">0</div>
+                          <button class="mainActionElement amount__button productIncrease">+</button>
+                        </div>
+                        <div class="mainActionElement">
+                          <button class="amount__delete">
+                            <svg class="icon clearCart__icon" viewBox="0 0 16 16">
+                              <use href="#trash"></use>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="amount__value">0</div>
+                    </div>
+
+
                   </div>
-
-
                 </div>
-              </div>
+              </template>
 
             </div>
           </div>
@@ -172,23 +181,17 @@
               <div class="cart__title">Ваша корзина:</div>
               <div class="cart__item amout">
                 <div class="cart__productCount">
-                  <span class="cart__productCountValue">0</span> товаров:
+                  <span class="cart__productCountValue productCount">0</span> товаров:
                 </div>
-                <div class="cart__totalPrice">
-                  <span class="cart__totalPriceValue">0</span> ₽
-                </div>
+                <div class="cart__totalPrice">0 ₽</div>
               </div>
               <div class="cart__item sale">
                 <div class="cart__saleTitle">Скидка:</div>
-                <div class="cart__saleAmount">
-                  <span class="cart__saleAmountValue">0</span> ₽
-                </div>
+                <div class="cart__saleAmount">0 ₽</div>
               </div>
               <div class="cart__item summ">
                 <div class="cart__summTitle">Итого:</div>
-                <div class="cart__summAmount">
-                  <span class="cart__summAmountValue">0</span> ₽
-                </div>
+                <div class="cart__summAmount">0 ₽</div>
               </div>
               <button class="cartButton">
                 К оформлению <svg class="icon checkoutIcon" viewBox="0 0 16 16"><use href="#rightArrow"></use></svg>
@@ -206,7 +209,7 @@
               <div class="promocode__content">
                 <div class="inputField">
                   <label for="promocode" class="inputField__label">Промокод</label>
-                  <input class="inputField__input" type="text" placeholder="Введите промокод" id="promocode" />
+                  <input class="inputField__input promocodeInput" type="text" placeholder="Введите промокод" />
                   <button class="inputField__clear" type="button">✖</button>
                 </div>
                 <button class="promocode__use">Применить</button>
@@ -220,7 +223,7 @@
     <!-- end КОРЗИНА -->
 
     <!-- ОФОРМЛЕНИЕ ЗАКАЗА -->
-    <section class="checkout" id="viewCheckout">
+    <section class="viewCheckout" hidden>
       <div class="page">
         <div class="pageHeader">
           <nav class="breadcrumbs checkout__breadcumbs" aria-label="Хлебные крошки">
@@ -233,7 +236,7 @@
                 </a>
               </li>
               <li class="breadcrumbs__item breadcrumbs__item--current">
-                <a class="breadcrumbs__link" href="#/cart">
+                <a class="breadcrumbs__link" href="#cart">
                   <span class="breadcrumbs__value"> / Корзина</span>
                 </a>
               </li>
@@ -445,21 +448,15 @@
                 <div class="cart__productCount">
                   <span class="cart__productCountValue">0</span> товаров:
                 </div>
-                <div class="cart__totalPrice">
-                  <span class="cart__totalPriceValue">0</span> ₽
-                </div>
+                <div class="cart__totalPrice">0 ₽</div>
               </div>
               <div class="cart__item sale">
                 <div class="cart__saleTitle">Скидка:</div>
-                <div class="cart__saleAmount">
-                  <span class="cart__saleAmountValue">0</span> ₽
-                </div>
+                <div class="cart__saleAmount">0 ₽</div>
               </div>
               <div class="cart__item summ">
                 <div class="cart__summTitle">Итого:</div>
-                <div class="cart__summAmount">
-                  <span class="cart__summAmountValue">0</span> ₽
-                </div>
+                <div class="cart__summAmount">0 ₽</div>
               </div>
               <button class="cartButton">Оформить заказ</button>
             </div>
@@ -475,7 +472,7 @@
               <div class="promocode__content">
                 <div class="inputField">
                   <label for="promocode" class="inputField__label">Промокод</label>
-                  <input class="inputField__input" type="text" placeholder="Введите промокод" id="promocode" />
+                  <input class="inputField__input promocodeInput" type="text" placeholder="Введите промокод" />
                   <button class="inputField__clear" type="button">✖</button>
                 </div>
                 <button class="promocode__use">Применить</button>
@@ -489,7 +486,7 @@
     <!-- end ОФОРМЛЕНИЕ ЗАКАЗА -->
 
     <!-- УСПЕХ -->
-    <section class="view view_success" id="view-success" hidden>
+    <section class="viewSuccess" hidden>
 
     </section>
 
@@ -508,11 +505,12 @@
       </div>
     </div>
   </footer>
-
-  <script src="js/utils.js"></script>
-  <script src="js/config.js"></script>
-  <script src="js/router.js"></script>
-  <script src="js/app.js"></script>
+  <script src="./js/config.js"></script>
+  <script src="./js/utils.js"></script>
+  <script type="module" src="./js/router.js"></script>
+  <script type="module" src="./js/product.js"></script>
+  <script type="module" src="./js/cart.js"></script>
+  <script type="module" src="./js/main.js"></script>
   <script>
     const swiper = new Swiper('.swiper', {
       slidesPerView: 3,
