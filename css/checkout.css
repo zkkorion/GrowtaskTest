@@ -126,7 +126,7 @@
     border-color: var(--color-gray-medium);
 }
 
-.payment_active {
+.payment_active, .payment_active:hover {
     border-color: var(--color1-main);
 }
 
@@ -211,7 +211,7 @@
         margin-right: 0;
     }
 
-    .form {
+    .checkoutForm {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 12px;
@@ -222,6 +222,14 @@
     }
 
     .warning {
+        align-items: center;
         margin-bottom: 0;
+    }
+
+    .checkoutFooter {
+        display: grid;
+        grid-template-columns: 172px auto;
+        gap: 20px;
+        align-items: center;
     }
 }

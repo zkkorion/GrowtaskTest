@@ -263,88 +263,21 @@
                 <span class="checkokutCart__count">158</span> товаров
               </div>
               <div class="checkoutCart__list">
-                <div class="checkoutCart__product">
-                  <img src="images/no-image.jpg" class="checkoutCart__image">
-                  <div class="checkoutCart__badge">10</div>
-                </div>
-                <div class="checkoutCart__product">
-                  <img src="images/no-image.jpg" class="checkoutCart__image">
-                  <div class="checkoutCart__badge">10</div>
-                </div>
-                <div class="checkoutCart__product">
-                  <img src="images/no-image.jpg" class="checkoutCart__image">
-                  <div class="checkoutCart__badge">10</div>
-                </div>
-                <div class="checkoutCart__product">
-                  <img src="images/no-image.jpg" class="checkoutCart__image">
-                  <div class="checkoutCart__badge">10</div>
-                </div>
-                <div class="checkoutCart__product">
-                  <img src="images/no-image.jpg" class="checkoutCart__image">
-                  <div class="checkoutCart__badge">10</div>
-                </div>
-                <div class="checkoutCart__product">
-                  <img src="images/no-image.jpg" class="checkoutCart__image">
-                  <div class="checkoutCart__badge">10</div>
-                </div>
-                <div class="checkoutCart__product">
-                  <img src="images/no-image.jpg" class="checkoutCart__image">
-                  <div class="checkoutCart__badge">10</div>
-                </div>
-                <div class="checkoutCart__product">
-                  <img src="images/no-image.jpg" class="checkoutCart__image">
-                  <div class="checkoutCart__badge">10</div>
-                </div>
-                <div class="checkoutCart__product">
-                  <img src="images/no-image.jpg" class="checkoutCart__image">
-                  <div class="checkoutCart__badge">10</div>
-                </div>
-                <div class="checkoutCart__product">
-                  <img src="images/no-image.jpg" class="checkoutCart__image">
-                  <div class="checkoutCart__badge">10</div>
-                </div>
               </div>
 
               <div class="swiper">
                 <div class="swiper-wrapper">
                   <div class="swiper-slide">
-                    <div class="checkoutCart__product">
-                      <img src="images/no-image.jpg" class="checkoutCart__image">
-                      <div class="checkoutCart__badge">10</div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="checkoutCart__product">
-                      <img src="images/no-image.jpg" class="checkoutCart__image">
-                      <div class="checkoutCart__badge">10</div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="checkoutCart__product">
-                      <img src="images/no-image.jpg" class="checkoutCart__image">
-                      <div class="checkoutCart__badge">10</div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="checkoutCart__product">
-                      <img src="images/no-image.jpg" class="checkoutCart__image">
-                      <div class="checkoutCart__badge">10</div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="checkoutCart__product">
-                      <img src="images/no-image.jpg" class="checkoutCart__image">
-                      <div class="checkoutCart__badge">10</div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="checkoutCart__product">
-                      <img src="images/no-image.jpg" class="checkoutCart__image">
-                      <div class="checkoutCart__badge">10</div>
-                    </div>
                   </div>
                 </div>
               </div>
+              
+              <template id="checkoutProductTemplate">
+                <div class="checkoutCart__product">
+                  <img src="images/no-image.jpg" class="checkoutCart__image">
+                  <div class="checkoutCart__badge">10</div>
+                </div>
+              </template>
 
               <a href="#cart" class="checkoutCart__backButton backButton mainActionElement">
                 <svg class="icon backButton__Icon" viewBox="0 0 16 16"><use href="#backArrow"></use></svg>
@@ -355,27 +288,27 @@
             <div class="card userForm">
               <div class="card__title">Покупатель</div>
               <div class="card__label">Укажите свои данные для покупки наших товаров</div>
-              <form class="form">
+              <form class="checkoutForm" id="checkout">
                 <div class="inputField">
                   <label for="name" class="inputField__label">Имя*</label>
-                  <input class="inputField__input" type="text" placeholder="Иван" id="name" />
+                  <input class="inputField__input" type="text" placeholder="Иван" name="name" id="name" />
                   <button class="inputField__clear" type="button">✖</button>
                 </div>
                 <div class="inputField">
                   <label for="secondName" class="inputField__label">Фамилия*</label>
-                  <input class="inputField__input" type="text" placeholder="Иванов" id="secondName" />
+                  <input class="inputField__input" type="text" placeholder="Иванов" name="secondName" id="secondName" />
                   <button class="inputField__clear" type="button">✖</button>
                 </div>
                 <div class="inputField inputField_padding-left">
                   <svg class="icon phoneIcon" viewBox="0 0 23 23"><use href="#phoneIcon"></use></svg>
-                  <label for="phone" class="inputField__label">Телефон</label>
-                  <input class="inputField__input input_padding-left" type="text" placeholder="+7 800 555 35 35" id="phone" />
+                  <label for="phone" class="inputField__label">Телефон*</label>
+                  <input class="inputField__input input_padding-left" type="text" placeholder="+7 800 555 35 35" name="phone" id="phone" />
                   <button class="inputField__clear" type="button">✖</button>
                 </div>
                 <div class="inputField">
                   <svg class="icon emailIcon" viewBox="0 0 22 22"><use href="#emailIcon"></use></svg>
-                  <label for="email" class="inputField__label">Почта</label>
-                  <input class="inputField__input input_padding-left" type="text" placeholder="mail@exampl.com" id="email" />
+                  <label for="email" class="inputField__label">Почта*</label>
+                  <input class="inputField__input input_padding-left" type="text" placeholder="mail@exampl.com" name="email" id="email" />
                   <button class="inputField__clear" type="button">✖</button>
                 </div>
                 <div class="separator grid-column-1-3"></div>
@@ -388,7 +321,7 @@
                 <div class="separator grid-column-1-3"></div>
                 <div class="inputField grid-column-1-3">
                   <label for="comment" class="inputField__label">Комментарий к заказу</label>
-                  <textarea class="inputField__textarea" rows="5" placeholder="Напишите свои пожелания..." id="comment"></textarea>
+                  <textarea class="inputField__textarea" rows="5" placeholder="Напишите свои пожелания..." name="comment" id="comment"></textarea>
                 </div>
 
                 <div class="spam grid-column-1-3">
@@ -418,7 +351,7 @@
                     <div class="payment__title">При получении</div>
                     <div class="payment__description">Наличными или картой при получении</div>
                   </div>
-                  <input class="payment__radio" type="radio" name="payment" id="onlinePayment" value="online" />
+                  <input class="payment__radio" type="radio" name="payment" id="onlinePayment" value="cash" />
                 </div>
               </div>
               <div class="separator"></div>
@@ -432,9 +365,9 @@
             </div>
 
             <div class="checkoutFooter">
-              <button class="cartButton" type="button">Оформить заказ</button>
-              <div class="warning checkoutFooter__warning">
-                <div class="warning__icon">🛈</div>
+              <button class="cartButton submitButton" type="submit" form="checkout" disabled>Оформить заказ</button>
+              <div class="warning checkoutFooter__warning" hidden>
+                <div class="warning__icon"><svg class="icon warnIcon" viewBox="0 0 22 22"><use href="#warn"></use></svg></div>
                 <div class="warning__text">Вы указали все необходимые данные, теперь можно оформить заказ</div>
               </div>
             </div>
@@ -446,7 +379,7 @@
               <div class="cart__title">Ваша заказ:</div>
               <div class="cart__item amout">
                 <div class="cart__productCount">
-                  <span class="cart__productCountValue">0</span> товаров:
+                  <span class="cart__productCountValue productCount">0</span> товаров:
                 </div>
                 <div class="cart__totalPrice">0 ₽</div>
               </div>
@@ -458,7 +391,7 @@
                 <div class="cart__summTitle">Итого:</div>
                 <div class="cart__summAmount">0 ₽</div>
               </div>
-              <button class="cartButton">Оформить заказ</button>
+              <button class="cartButton submitButton" type="submit" form="checkout" disabled>Оформить заказ</button>
             </div>
 
             <div class="promocode">
@@ -487,7 +420,49 @@
 
     <!-- УСПЕХ -->
     <section class="viewSuccess" hidden>
+      <div class="page">
+        <div class="pageHeader">
+          <nav class="breadcrumbs" aria-label="Хлебные крошки">
+            <ol class="breadcrumbs__list">
+              <li class="breadcrumbs__item breadcrumbs__main mainActionElement">
+                <a class="breadcrumbs__link" href="#cart">
+                  <svg class="icon homeIcon" viewBox="0 0 13 13">
+                    <use href="#home"></use>
+                  </svg>
+                </a>
+              </li>
+              <li class="breadcrumbs__item">
+                <a class="breadcrumbs__link" href="#cart">
+                  <span class="breadcrumbs__value"> / Корзина</span>
+                </a>
+              </li>
+              <li class="breadcrumbs__item">
+                <a class="breadcrumbs__link" href="#checkout">
+                  <span class="breadcrumbs__value"> / Оформление заказа</span>
+                </a>
+              </li>
+              <li class="breadcrumbs__item breadcrumbs__item--current">
+                <span class="breadcrumbs__value"> / Статус заказа</span>
+              </li>
+            </ol>
+          </nav>
+        </div>
 
+        <div class="page__content">
+          <div class="success">
+            <div class="success__icon">
+              <svg class="icon success__checkIcon" viewBox="0 0 24 24">
+                <path d="M5 12.5L10 17.5L19 6.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="success__title">Заказ №<span class="success__orderNumber">001</span> успешно создан</div>
+            <div class="success__label">Статус заказа вы можете отслеживать в личном кабинете</div>
+            <div class="succesButtonWrapper">
+              <a href="#cart" class="success__button">В корзину</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
   </main>
@@ -510,9 +485,10 @@
   <script type="module" src="./js/router.js"></script>
   <script type="module" src="./js/product.js"></script>
   <script type="module" src="./js/cart.js"></script>
+  <script type="module" src="./js/checkout.js"></script>
   <script type="module" src="./js/main.js"></script>
   <script>
-    const swiper = new Swiper('.swiper', {
+    var swiper = new Swiper('.swiper', {
       slidesPerView: 3,
       direction: 'horizontal',
       loop: false,
