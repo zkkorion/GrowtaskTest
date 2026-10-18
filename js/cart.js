@@ -2,7 +2,7 @@
 
 import Product from './product.js';
 
-export default class Cart {
+export default class Cart extends EventTarget {
     productList = [];
     selectedProductIdList = [];
     formatPrice = window.Utils.formatPrice;
@@ -24,52 +24,21 @@ export default class Cart {
     sale = 0;
     promocodeUsed = false;
 
-    amountChange = (type, price, old_price) => {
-        if (type === 'increase') {
-            this.productQuantity++;
-            this.totalOldPrice += old_price ?? price;
-            this.totalPriceValue += price;
-        } else if (type === 'decrease') {
-            this.productQuantity--;
-            this.totalOldPrice -= old_price ?? price;
-            this.totalPriceValue -= price;
-        }
-        this.sale = this.totalOldPrice - this.totalPriceValue;
-        this.render();
-    };
+    renderEvent = new CustomEvent('render');
 
-    deleteProduct = (id) => {
-        const deletedProduct = this.productList.find(item => item.parameters.id === id);
-        this.productList = this.productList.filter(item => item.parameters.id !== id);
-        this.productListContainer.querySelector(`#id${id}`).remove();
-        this.productQuantity -= deletedProduct.parameters.quantity;
-        this.totalOldPrice -= (deletedProduct.parameters.old_price ?? deletedProduct.parameters.price) * deletedProduct.parameters.quantity;
-        this.totalPriceValue -= deletedProduct.totalPrice;
-        this.sale = this.totalOldPrice - this.totalPriceValue;
-        this.render();
-    };
-
-    selectProduct = (id, isSelected) => {
-        if (isSelected) {
-            this.selectedProductIdList.push(id);
-        } else {
-            this.selectedProductIdList = this.selectedProductIdList.filter(item => item !== id);
-        }
-    };
+    getProductList = () => this.productList;
 
     init() {
-        this.loadProducts().then(list => {
+        return this.loadProducts().then(list => {
             list.forEach(item => {
                 const fragment = this.productCardTemplate.content.cloneNode(true);
                 const productCard = fragment.firstElementChild;
-                const product = new Product(item, productCard, this.amountChange, this.deleteProduct, this.selectProduct);
+                const product = new Product();
+                product.init(item, productCard, this.amountChange, this.deleteProduct, this.selectProduct);
                 this.productListContainer.appendChild(product.node);
                 this.productList.push(product);
-                this.productQuantity += item.quantity;
-                this.totalOldPrice += (item.old_price ?? item.price) * item.quantity;
-                this.totalPriceValue += (item.price * item.quantity);
-                this.sale = this.totalOldPrice - this.totalPriceValue;
             });
+            this.calculate();
             this.render();
             this.promocodeInit();
             this.clearCartButton.addEventListener('click', () => this.clearProductList());
@@ -84,7 +53,7 @@ export default class Cart {
                 return response.json();
             })
             .then(json => {
-                return mock;
+                // return mock;
                 return json.data;
             })
             .catch((error) => {
@@ -93,38 +62,30 @@ export default class Cart {
             });
     }
 
-    render() {
-        this.productCountlist.forEach(item => item.innerText = this.productQuantity);
-        this.totalOldPriceList.forEach(item => item.innerText = this.formatPrice(this.totalOldPrice));
-        this.totalPriceList.forEach(item => item.innerText = this.formatPrice(this.totalPriceValue));
-        this.saleAmountList.forEach(item => item.innerText = this.formatPrice(this.sale));
-    }
+    amountChange = () => {
+        this.calculate();
+        this.render();
+    };
 
-    promocodeInit() {
-        this.promocodeUseList.forEach(button => {
-            button.addEventListener('click', () => {
-                const promocode = button.closest('.promocode__content')?.querySelector('.promocodeInput').value;
-                if (promocode == window.Config.PROMO_CODES.GROWTASK2026.code && !this.promocodeUsed) {
-                    this.totalPriceValue *= (1 - window.Config.PROMO_CODES.GROWTASK2026.value);
-                    this.sale = this.totalOldPrice - this.totalPriceValue;
-                    this.promocodeUsed = true;
-                    this.render();
-                }
-            });
-        });
-    }
+    deleteProduct = (id) => {
+        this.productList = this.productList.filter(item => item.parameters.id !== id);
+        this.productListContainer.querySelector(`#id${id}`).remove();
+        this.calculate();
+        this.render();
+    };
 
-    addPromocode() {
-        this.totalPriceValue *= (1 - window.Config.PROMO_CODES.GROWTASK2026.value);
-        this.sale = this.totalOldPrice - this.totalPriceValue;
-    }
+    selectProduct = (id, isSelected) => {
+        if (isSelected) {
+            this.selectedProductIdList.push(id);
+        } else {
+            this.selectedProductIdList = this.selectedProductIdList.filter(item => item !== id);
+        }
+    };
 
     clearProductList() {
+        this.clearValues();
         this.productList = [];
-        this.productQuantity = 0;
-        this.totalOldPrice = 0;
-        this.totalPriceValue = 0;
-        this.sale = 0;
+        this.promocodeUsed = false;
         this.render();
         while (this.productListContainer.firstChild) {
             this.productListContainer.removeChild(this.productListContainer.firstChild);
@@ -133,8 +94,61 @@ export default class Cart {
     }
 
     deleteSelectedProducts() {
-        this.selectedProductIdList.forEach(id => this.deleteProduct(id));
+        this.productList = this.productList.filter(item => !this.selectedProductIdList.includes(item.parameters.id));
         this.selectedProductIdList = [];
+        this.calculate();
+        this.render();
+    }
+
+    promocodeInit() {
+        this.promocodeUseList.forEach(button => {
+            button.addEventListener('click', () => {
+                const promocode = button.closest('.promocode__content')?.querySelector('.promocodeInput').value;
+                if (promocode == window.Config.PROMO_CODES.GROWTASK2026.code && !this.promocodeUsed) {
+                    this.promocodeUsed = true;
+                    this.calculate();
+                    this.render();
+                }
+            });
+        });
+    }
+
+    calculate() {
+        this.clearValues();
+        this.productList.forEach(item => {
+            this.productQuantity += item.parameters.quantity;
+            this.totalOldPrice += (item.parameters.old_price ?? item.parameters.price) * item.parameters.quantity;
+            this.totalPriceValue += (item.parameters.price * item.parameters.quantity);
+        });
+        if (this.promocodeUsed) {
+            this.totalPriceValue *= (1 - window.Config.PROMO_CODES.GROWTASK2026.value);
+        }
+        this.sale = this.totalOldPrice - this.totalPriceValue;
+    }
+
+    clearValues() {
+        this.productQuantity = 0;
+        this.totalOldPrice = 0;
+        this.totalPriceValue = 0;
+        this.sale = 0;
+    }
+
+    render() {
+        this.productCountlist.forEach(item => item.innerText = this.productQuantity);
+        this.totalOldPriceList.forEach(item => item.innerText = this.formatPrice(this.totalOldPrice));
+        this.totalPriceList.forEach(item => item.innerText = this.formatPrice(this.totalPriceValue));
+        this.saleAmountList.forEach(item => item.innerText = this.formatPrice(this.sale));
+        this.dispatchEvent(this.renderEvent);
+        swiper.update();
+    }
+
+    getCartAmmount() {
+        return {
+            quantity: this.productQuantity,
+            old_price: this.totalOldPrice,
+            price: this.totalPriceValue,
+            discount: this.sale,
+        };
     }
 
 }

@@ -25,17 +25,12 @@ export default class Product {
     onDelete;
     onSelect;
 
-    constructor(parameters, node, onAmountChange, onDelete, onSelect) {
+    init(parameters, node, onAmountChange, onDelete, onSelect) {
         this.parameters = parameters;
         this.node = node;
         this.onAmountChange = onAmountChange;
         this.onDelete = onDelete;
         this.onSelect = onSelect;
-        this.init();
-        this.render();
-    }
-
-    init() {
         this.node.setAttribute('id', `id${this.parameters.id}`);
         this.image = this.node.querySelector('.productCard__image');
         this.article = this.node.querySelector('.productCard__article');
@@ -53,6 +48,7 @@ export default class Product {
             (event) => this.onSelect(this.parameters.id, event.target.checked)
         );
         this.totalPrice = this.parameters.price * this.parameters.quantity;
+        this.render();
     }
 
     render() {

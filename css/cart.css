@@ -46,7 +46,7 @@
     width: 20px;
 }
 
-.clearCart__button {
+.clearCart__button, .deleteSelected__button {
     display: flex;
     justify-content: center;
     align-items: center;

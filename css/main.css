@@ -15,6 +15,8 @@
     --color1-lighter: #FCD7DD;
     --color-font-error: #CC2929;
     --color-error-darker: #A61029;
+    --color-success-light: #D4EDDA;
+    --color-success-main: #2B8A3E;
     --box-shadow-main: 0px 0px 10px 2px rgba(0, 11, 64, 0.1);
 }
 
@@ -22,6 +24,10 @@ body {
     background-color: var(--color-gray-white);
     color: var(--color-gray-black);
     font-family: sans-serif;
+}
+
+*[hidden] {
+    display: none!important;
 }
 
 .checkbox{
@@ -106,6 +112,7 @@ footer {
 .studioSign__text {
     font-size: 11px;
 }
+
 .breadcrumbs {
     padding: 20px 0;
     margin-bottom: 16px;
@@ -167,6 +174,10 @@ footer {
     background-color: var(--color1-main-light);
 }
 
+.cartButton[disabled] {
+    background-color: var(--color-gray-medium);
+}
+
 .inputField {
     display: flex;
     flex-wrap: wrap;
@@ -220,6 +231,70 @@ footer {
     padding-left: 40px;
 }
 
+.success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 55vh;
+    padding: 32px 16px;
+    text-align: center;
+}
+
+.success__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    margin-bottom: 24px;
+    color: var(--color-success-main);
+    border-radius: 16px;
+    background-color: var(--color-success-light);
+}
+
+.success__checkIcon {
+    width: 28px;
+    height: 28px;
+}
+
+.success__title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.success__orderNumber {
+    font-weight: 700;
+}
+
+.success__label {
+    font-size: 13px;
+    color: var(--color-gray-medium);
+    margin-bottom: 28px;
+}
+
+.succesButtonWrapper {
+    color: var(--color-gray-white);
+}
+
+.success__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    padding: 0 24px;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: var(--color1-main);
+    border-radius: 12px;
+    transition: background-color 0.2s ease;
+}
+
+.success__button:hover {
+    background-color: var(--color1-main-light);
+}
+
 @media (min-width: 1366px) {
     header {
         display: flex;
@@ -254,6 +329,37 @@ footer {
     .homeIcon {
         width: 13px;
         height: 13px;
+    }
+
+    .success {
+        min-height: 60vh;
+        padding: 48px 16px;
+    }
+
+    .success__icon {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 32px;
+    }
+
+    .success__checkIcon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .success__title {
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+    }
+
+    .success__label {
+        margin-bottom: 36px;
+    }
+
+    .success__button {
+        min-width: 160px;
+        height: 48px;
+        font-size: 15px;
     }
 }
 
