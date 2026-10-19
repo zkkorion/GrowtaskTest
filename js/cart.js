@@ -17,6 +17,7 @@ export default class Cart extends EventTarget {
     promocodeUseList = document.querySelectorAll('.promocode__use');
     clearCartButton = document.querySelector('.clearCart__button');
     deleteSelectedButton = document.querySelector('.deleteSelected__button');
+    selectAllButton = document.querySelector('#selectAll');
 
     productQuantity = 0;
     totalPriceValue = 0;
@@ -43,6 +44,7 @@ export default class Cart extends EventTarget {
             this.promocodeInit();
             this.clearCartButton.addEventListener('click', () => this.clearProductList());
             this.deleteSelectedButton.addEventListener('click', () => this.deleteSelectedProducts());
+            this.selectAllButton.addEventListener('click', () => this.selectAllProducts());
         });
     }
 
@@ -82,6 +84,19 @@ export default class Cart extends EventTarget {
         }
     };
 
+    selectAllProducts() {
+        if (this.selectedProductIdList.length == this.productList.length) {
+            this.selectedProductIdList = [];
+            return;
+        }
+
+        this.productList.forEach(product => {
+            if (!this.selectedProductIdList.includes(product.parameters.id)) {
+                this.selectedProductIdList.push(product.parameters.id);
+            }
+        });
+    }
+
     clearProductList() {
         this.clearValues();
         this.productList = [];
@@ -94,6 +109,7 @@ export default class Cart extends EventTarget {
     }
 
     deleteSelectedProducts() {
+        this.selectedProductIdList.forEach(id => this.deleteProduct(id));
         this.productList = this.productList.filter(item => !this.selectedProductIdList.includes(item.parameters.id));
         this.selectedProductIdList = [];
         this.calculate();
